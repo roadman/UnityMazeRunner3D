@@ -16,7 +16,7 @@ public enum DungenObjectType {
 	WallForward = 3,
 	WallBack	= 4,
 	Torch1		= 5,
-	Torch2		= 6
+	//Torch2		= 6
 }
 
 public class SelectObject {
@@ -165,7 +165,7 @@ public class DungeonGenerator2 : MonoBehaviour {
 				newObj.rotate = Quaternion.Euler(0, 90, 0);
 				break;
 			case DungenObjectType.Torch1:
-			case DungenObjectType.Torch2:
+			//case DungenObjectType.Torch2:
 				newObj.position = posObj;
 				newObj.prefab = PrefabTorch;
 				newObj.rotate = Quaternion.identity;
