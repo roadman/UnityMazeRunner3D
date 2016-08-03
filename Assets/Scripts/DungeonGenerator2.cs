@@ -14,17 +14,19 @@ public enum DungenObjectType {
 	WallLeft 	= 1,
 	WallRight	= 2,
 	WallForward = 3,
-	WallBack	= 4
+	WallBack	= 4,
+	Torch1		= 5,
+	Torch2		= 6
 }
 
 public class SelectObject {
-	public int posZ;	
 	public int posX;	
+	public int posZ;	
 	public DungenObjectType type;
 	
-	public SelectObject(int posZ, int posX, DungenObjectType type) {
-		this.posZ = posZ;
+	public SelectObject(int posX, int posZ, DungenObjectType type) {
 		this.posX = posX;
+		this.posZ = posZ;
 		this.type = type;
 	}
 }
@@ -36,6 +38,7 @@ public class DungeonGenerator2 : MonoBehaviour {
 
 	public GameObject PrefabFloor;
 	public GameObject PrefabWall;
+	public GameObject PrefabTorch;
 
 	public float BlockSizeZ;
 	public float BlockSizeX;
@@ -80,7 +83,11 @@ public class DungeonGenerator2 : MonoBehaviour {
 				newObj.position = basePos;
 				newObj.prefab = PrefabFloor;
 				newObj.rotate = Quaternion.identity;
-				//generateList.Add(newObj);
+				GenerateDungeon(newObj);
+				
+				newObj.position = basePos + new Vector3(0, 6, 0);
+				newObj.prefab = PrefabFloor;
+				newObj.rotate = Quaternion.identity;
 				GenerateDungeon(newObj);
 
 				// 外周wall生成
@@ -156,6 +163,12 @@ public class DungeonGenerator2 : MonoBehaviour {
 				newObj.position = posObj + new Vector3(0, 0, -wallDistanceZ);
 				newObj.prefab = PrefabWall;
 				newObj.rotate = Quaternion.Euler(0, 90, 0);
+				break;
+			case DungenObjectType.Torch1:
+			case DungenObjectType.Torch2:
+				newObj.position = posObj;
+				newObj.prefab = PrefabTorch;
+				newObj.rotate = Quaternion.identity;
 				break;
 			default:
 				return null;
